@@ -1,2 +1,2 @@
 #!/bin/bash
-git add . && git commit -m '6-multiple_permissions6-multiple_permissions' && git push
+git add . && git commit -m '6-multiple_permissions6-multiple_permissions2' && git push
