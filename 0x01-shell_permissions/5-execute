@@ -1,3 +1,2 @@
-#!/bin/bash
-u+x hello
+#!/bin/bashu+x hello
 chmod u+x hello
