@@ -1,2 +1,2 @@
-#!/bin/bash
-echo file school.mgc 
+0 string SCHOOL school data
+!:mime school
