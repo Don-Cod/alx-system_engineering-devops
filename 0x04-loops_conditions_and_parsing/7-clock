@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# This file displays the time for '12 hours' and '59 minutes'
+# displays hours from 0 to 13
+# displays minutes from 1 to 59
+# all using a nested while loop
+
+x=0
+
+while [ $x -le 12 ]
+do
+	echo "Hour: $x"
+	(( x++ ))
+
+	y=1
+	while [ "$y" -le 59 ]
+	do
+		echo "$y"
+		(( y++ ))
+	done
+done

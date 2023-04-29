@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This file prints 'Best School' 10 times
+# using the 'if-else' statement to change the printed text
+# at a certain time
+
+x=1
+while [ $x -le 10 ]
+do
+	echo "Best School"
+	if [ $x -eq 9 ]
+	then
+		echo "Hi"
+	fi
+	x=$(( x + 1 ))
+done
