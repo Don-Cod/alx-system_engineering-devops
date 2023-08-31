@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
-# Perform nginx server install and config
+# Script that configures a new Ubuntu machine to respect above requirements
 
-sudo apt-get -y update
-sudo apt-get -y install nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+
 echo "Hello World!" | sudo tee /var/www/html/index.html
+string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/doncod.tech;"
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
 
-# configure nginx server
-default_sites="/etc/nginx/sites-available/default"
-location=$(grep -Fn location $default_sites | head -1 | cut -d":" -f1)
-
-## Update default site to redirect and start nginx server
-sudo sed -i "${location}i ${location_data}" ${default_sites}
-sudo service nginx start
+sudo service nginx restart
