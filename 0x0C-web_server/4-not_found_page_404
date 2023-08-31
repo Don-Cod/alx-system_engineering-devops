@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
-# have a custom 404 page
+## nginx server install and config
 
 sudo apt-get -y update
 sudo apt-get -y install nginx
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+default_sites="/etc/nginx/sites-available/default"
+location=$(grep -Fn location $default_sites | head -1 | cut -d":" -f1)
+location_data="\\\tlocation /redirect_me {\n\t\treturn 301 https://doncod.tech;\n\t}\n\n"
+error_page="\\\terror_page 404 /404.html;\n"
+
+echo "Ceci n'est pas une page" | sudo tee "/var/www/html/404.html"
+sudo sed -i "${location}i ${location_data}" ${default_sites}
+sudo sed -i "${location}i ${error_page}" ${default_sites}
 sudo service nginx start
-echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/error_404.html
-sudo sed -i "30i \\\terror_page 404 /error_404.html;\n\tlocation = /error_404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}" /etc/nginx/sites-available/default
-sudo service nginx restart
