@@ -6,12 +6,18 @@ dns_config() {
     echo "$2 $script" | awk '{print "The subdomain " $1 " is a " $2 " record and points to " $3}'
 }
 
-subdomains=( "www" "lb-01" "web-01" "web-02" )
+if [[ "$#" == 1 ]]; then
+    domain="$1"
+    subdomains=("www" "lb-01" "web-01" "web-02")
 
-if [ $# -eq 2 ]; then
-	  dig "$2.$1" | grep -A1 'ANSWER SECTION:' | grep -v 'ANSWER' | awk -v subd="$2" '{print "The subdomain "subd" is a "$4" record and points to "$5}'
+    for subdomain in "${subdomains[@]}"; do
+        dns_config "$domain" "$subdomain"
+    done
+elif [[ "$#" == 2 ]]; then
+    domain="$1"
+    subdomain="$2"
+    dns_config "$domain" "$subdomain"
 else
-	  for index in "${subdomains[@]}"; do
-		    dig "$index.$1" | grep -A1 'ANSWER SECTION:' | grep -v 'ANSWER' | awk -v subd="$index" '{print "The subdomain "subd" is a "$4" record and points to "$5}'
-	  done
+    echo "Usage: $0 <domain> [subdomain]"
+    exit 1
 fi
