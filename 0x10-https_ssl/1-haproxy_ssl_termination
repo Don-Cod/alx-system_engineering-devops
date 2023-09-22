@@ -35,7 +35,7 @@ defaults
 	errorfile 503 /etc/haproxy/errors/503.http
 	errorfile 504 /etc/haproxy/errors/504.http
 
-frontend 33743-lb-01
+frontend 205828-lb-01
 	bind *:80
 	bind *:443 ssl crt /etc/letsencrypt/live/pem/
 
